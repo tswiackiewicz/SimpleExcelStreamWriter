@@ -1,0 +1,22 @@
+{
+    "name": "tswiackiewicz/SimpleExcelStreamWriter",
+    "type": "project",
+    "description": "Project description",
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "TSwiackiewicz\\SimpleExcelStreamWriter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TSwiackiewicz\\SimpleExcelStreamWriter\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "~5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.6.4"
+    }
+}

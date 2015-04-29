@@ -4,7 +4,7 @@ namespace TSwiackiewicz\SimpleExcelStreamWriter;
 /**
  * Klasa do wykrywania ustawionego trybu endian srodowiska
  */
-class EndianMode
+class EndianModeDetector
 {
 
     /**

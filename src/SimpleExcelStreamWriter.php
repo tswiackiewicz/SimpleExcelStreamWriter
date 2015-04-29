@@ -4,13 +4,34 @@ namespace TSwiackiewicz\SimpleExcelStreamWriter;
 class SimpleExcelStreamWriter
 {
 
-    private $endianMode;
-
+    /**
+     * Sciezka do pliku wynikowego
+     * 
+     * @var string
+     */
     private $path;
 
-    public function __construct(EndianMode $endian, $path)
+    /**
+     * Wykryty tryb endian
+     * 
+     * @var string
+     */
+    private $endianMode = EndianModeDetector::MACHINE_BYTE_ORDER;
+
+    public function __construct($path, EndianModeDetector $endian)
     {
-        $this->endianMode = $endian->detect();
         $this->path = $path;
+        $this->endianMode = $endian->detect();
+    }
+
+    public function open()
+    {}
+
+    public function close()
+    {}
+
+    public function __destruct()
+    {
+        $this->close();
     }
 }

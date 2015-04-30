@@ -137,10 +137,7 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     public function getFormatCharArgMachineByteOrderEndian()
     {
         $formatter = new PackFormatter(new MachineByteOrderByteOrderMock());
-        $this->assertEquals('SLdC', $formatter->getFormat([
-            PackFormatter::SHORT,
-            PackFormatter::LONG,
-            PackFormatter::DOUBLE,
+        $this->assertEquals('C', $formatter->getFormat([
             PackFormatter::CHAR
         ]));
     }
@@ -179,7 +176,10 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     public function getFormatMultipleArgMachineByteOrderEndian()
     {
         $formatter = new PackFormatter(new MachineByteOrderByteOrderMock());
-        $this->assertEquals('C', $formatter->getFormat([
+        $this->assertEquals('SLdC', $formatter->getFormat([
+            PackFormatter::SHORT,
+            PackFormatter::LONG,
+            PackFormatter::DOUBLE,
             PackFormatter::CHAR
         ]));
     }

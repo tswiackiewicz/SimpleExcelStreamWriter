@@ -10,7 +10,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "TSwiackiewicz\\SimpleExcelStreamWriter\\": "tests/"
+            "TSwiackiewicz\\SimpleExcelStreamWriter\\Tests\\": "tests/",
+            "TSwiackiewicz\\SimpleExcelStreamWriter\\Tests\\": "tests/unit/"
         }
     },
     "require": {

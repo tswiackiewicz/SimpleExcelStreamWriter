@@ -1,10 +1,10 @@
 <?php
-namespace TSwiackiewicz\SimpleExcelStreamWriter;
+namespace TSwiackiewicz\SimpleExcelStreamWriter\ByteOrder;
 
 /**
  * Klasa do wykrywania ustawionego trybu endian srodowiska
  */
-class EndianModeDetector
+class ByteOrder
 {
 
     /**
@@ -34,34 +34,26 @@ class EndianModeDetector
      * 
      * @var integer
      */
-    private $testValue = 0x6162797A;
-
-    /**
-     * @param integer $testValue
-     */
-    public function setTestValue($testValue)
-    {
-        $this->testValue = $testValue;
-    }
+    protected $testValue = 0x6162797A;
 
     /**
      * Wykrywanie trybu endian (Little-Endian, Big-Endian, Machine Byte Order)
      * 
      * @return string tryb endian
      */
-    public function detect()
+    public function getEndian()
     {
         // domyslnie Machine Byte Order
         $endianMode = self::MACHINE_BYTE_ORDER;
         
         // konwersja $abyz do 32 bitowej postaci binarnej
         // L - unsigned long (32 bit, machine byte order)
-        switch ($this->packData('L', $this->testValue)) {
-            case $this->packData('V', $this->testValue):
+        switch ($this->getMachineByteOrderValue()) {
+            case $this->getLittleEndianValue():
                 $endianMode = self::LITTLE_ENDIAN;
                 break;
             
-            case $this->packData('N', $this->testValue):
+            case $this->getBigEndianValue():
                 $endianMode = self::BIG_ENDIAN;
                 break;
         }
@@ -70,14 +62,32 @@ class EndianModeDetector
     }
 
     /**
-     * Konwertowanie danych zgodnie z podanym binarnym formatem
+     * Pobranie testowej wartosci w formacie machine byte order
      * 
-     * @param string $format format zgodnie z ktorym dane sa pakowane
-     * @param integer $data dane konwertowane do formatu binarnego
-     * @return string ciag binarny zawierajacy podane dane w ustalonym formacie
+     * @return integer binarna postac testowej wartosci w formacie machine byte order
      */
-    private function packData($format, $data)
+    protected function getMachineByteOrderValue()
     {
-        return pack($format, $data);
+        return pack('L', $this->testValue);
+    }
+
+    /**
+     * Pobranie testowej wartosci w formacie little endian
+     * 
+     * @return integer binarna postac testowej wartosci w formacie little endian
+     */
+    protected function getLittleEndianValue()
+    {
+        return pack('V', $this->testValue);
+    }
+
+    /**
+     * Pobranie testowej wartosci w formacie big endian
+     * 
+     * @return integer binarna postac testowej wartosci w formacie big endian
+     */
+    protected function getBigEndianValue()
+    {
+        return pack('N', $this->testValue);
     }
 }

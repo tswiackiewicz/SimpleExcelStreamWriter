@@ -1,7 +1,7 @@
 <?php
-namespace TSwiackiewicz\SimpleExcelStreamWriter;
+namespace TSwiackiewicz\ExcelStreamWriter;
 
-class SimpleExcelStreamWriter
+class ExcelStreamWriter
 {
 
     /**

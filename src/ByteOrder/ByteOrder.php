@@ -1,5 +1,5 @@
 <?php
-namespace TSwiackiewicz\SimpleExcelStreamWriter\ByteOrder;
+namespace TSwiackiewicz\ExcelStreamWriter\ByteOrder;
 
 /**
  * Klasa do wykrywania ustawionego trybu endian srodowiska

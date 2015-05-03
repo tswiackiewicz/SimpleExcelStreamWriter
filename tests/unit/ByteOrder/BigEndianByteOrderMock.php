@@ -1,7 +1,7 @@
 <?php
-namespace TSwiackiewicz\SimpleExcelStreamWriter\Tests\ByteOrder;
+namespace TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder;
 
-use TSwiackiewicz\SimpleExcelStreamWriter\ByteOrder\ByteOrder;
+use TSwiackiewicz\ExcelStreamWriter\ByteOrder\ByteOrder;
 
 class BigEndianByteOrderMock extends ByteOrder
 {

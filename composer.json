@@ -5,13 +5,13 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "TSwiackiewicz\\SimpleExcelStreamWriter\\": "src/"
+            "TSwiackiewicz\\ExcelStreamWriter\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "TSwiackiewicz\\SimpleExcelStreamWriter\\Tests\\": "tests/",
-            "TSwiackiewicz\\SimpleExcelStreamWriter\\Tests\\": "tests/unit/"
+            "TSwiackiewicz\\ExcelStreamWriter\\Tests\\": "tests/",
+            "TSwiackiewicz\\ExcelStreamWriter\\Tests\\": "tests/unit/"
         }
     },
     "require": {

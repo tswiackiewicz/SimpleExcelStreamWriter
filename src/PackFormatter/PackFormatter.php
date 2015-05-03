@@ -1,7 +1,7 @@
 <?php
-namespace TSwiackiewicz\SimpleExcelStreamWriter\PackFormatter;
+namespace TSwiackiewicz\ExcelStreamWriter\PackFormatter;
 
-use TSwiackiewicz\SimpleExcelStreamWriter\ByteOrder\ByteOrder;
+use TSwiackiewicz\ExcelStreamWriter\ByteOrder\ByteOrder;
 
 /**
  * Klasa do skladania formatu dla metody pack() w zaleznosci
@@ -80,6 +80,16 @@ class PackFormatter
     public function __construct(ByteOrder $byteOrder)
     {
         $this->endian = $byteOrder->getEndian();
+    }
+
+    /**
+     * Pobranie rozpoznanego trybu endain
+     * 
+     * @return string tryb endian
+     */
+    public function getEndian()
+    {
+        return $this->endian;
     }
 
     /**

@@ -1,11 +1,11 @@
 <?php
-namespace TSwiackiewicz\SimpleExcelStreamWriter\Tests\PackFormatter;
+namespace TSwiackiewicz\ExcelStreamWriter\Tests\PackFormatter;
 
-use TSwiackiewicz\SimpleExcelStreamWriter\PackFormatter\PackFormatter;
-use TSwiackiewicz\SimpleExcelStreamWriter\Tests\ByteOrder\LittleEndianByteOrderMock;
-use TSwiackiewicz\SimpleExcelStreamWriter\Tests\ByteOrder\BigEndianByteOrderMock;
-use TSwiackiewicz\SimpleExcelStreamWriter\Tests\ByteOrder\MachineByteOrderByteOrderMock;
-use TSwiackiewicz\SimpleExcelStreamWriter\ByteOrder\ByteOrder;
+use TSwiackiewicz\ExcelStreamWriter\PackFormatter\PackFormatter;
+use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\LittleEndianByteOrderMock;
+use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\BigEndianByteOrderMock;
+use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\MachineByteOrderByteOrderMock;
+use TSwiackiewicz\ExcelStreamWriter\ByteOrder\ByteOrder;
 
 class PackFormatterTest extends \PHPUnit_Framework_TestCase
 {

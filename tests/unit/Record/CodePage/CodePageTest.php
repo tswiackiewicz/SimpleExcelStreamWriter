@@ -1,19 +1,20 @@
 <?php
 namespace TSwiackiewicz\ExcelStreamWriter\Tests\Record\CodePage;
 
+use TSwiackiewicz\ExcelStreamWriter\Tests\AbstractTestCase;
 use TSwiackiewicz\ExcelStreamWriter\Record\CodePage\CodePage;
 use TSwiackiewicz\ExcelStreamWriter\PackFormatter\PackFormatter;
 use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\LittleEndianByteOrderMock;
 use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\BigEndianByteOrderMock;
 use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\MachineByteOrderByteOrderMock;
 
-class CodePageTest extends \PHPUnit_Framework_TestCase
+class CodePageTest extends AbstractTestCase
 {
 
     /**
      * @test
      */
-    public function getRecordUnicodePageLittleEndian()
+    public function getRecordLittleEndianUnicodeCodePage()
     {
         $record = new CodePage(new PackFormatter(new LittleEndianByteOrderMock()));
         $this->assertEquals(hex2bin('42000200b004'), $record->getRecord());
@@ -22,7 +23,7 @@ class CodePageTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getRecordUnicodePageBigEndian()
+    public function getRecordBigEndianUnicodeCodePage()
     {
         $record = new CodePage(new PackFormatter(new BigEndianByteOrderMock()));
         $this->assertEquals(hex2bin('0042000204b0'), $record->getRecord());
@@ -31,9 +32,26 @@ class CodePageTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getRecordUnicodePageMachineByteOrderEndian()
+    public function getRecordMachineByteOrderEndianUnicodeCodePage()
     {
         $record = new CodePage(new PackFormatter(new MachineByteOrderByteOrderMock()));
         $this->assertEquals(hex2bin('42000200b004'), $record->getRecord());
+    }
+
+    /**
+     * @test
+     * @expectedException TSwiackiewicz\ExcelStreamWriter\Record\InvalidRecordNumberException
+     */
+    public function getRecordWithInvalidRecordNumber()
+    {
+        $record = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\Record\CodePage\CodePage', [
+            'getRecordNumber'
+        ]);
+        
+        $record->expects($this->any())
+            ->method('getRecordNumber')
+            ->willReturn('');
+        
+        $record->getRecord();
     }
 }

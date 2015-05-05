@@ -9,28 +9,28 @@ use TSwiackiewicz\ExcelStreamWriter\ByteOrder\ByteOrder;
  */
 class PackFormatter
 {
-
+    
     /**
      * Predefiniowana stala dla pakowania do formatu short
      * 
      * @var string
      */
     const SHORT = 'short';
-
+    
     /**
      * Predefiniowana stala dla pakowania do formatu long
      * 
      * @var string
      */
     const LONG = 'long';
-
+    
     /**
      * Predefiniowana stala dla pakowania do formatu double
      * 
      * @var string
      */
     const DOUBLE = 'double';
-
+    
     /**
      * Predefiniowana stala dla pakowania do formatu char
      * 
@@ -104,7 +104,7 @@ class PackFormatter
         $format = '';
         
         foreach ($args as $arg) {
-            if (! isset($this->formatMap[$this->endian][$arg])) {
+            if (!isset($this->formatMap[$this->endian][$arg])) {
                 throw new \InvalidArgumentException('Unsupported format arg!');
             }
             

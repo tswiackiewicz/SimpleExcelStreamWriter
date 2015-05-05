@@ -42,16 +42,16 @@ abstract class Record
      * @throws InvalidRecordNumberException nieprawidlowy numer rekordu
      * @return string pobierany rekord
      */
-    final public function getRecord()
+    public function getRecord()
     {
         $recordNumber = $this->getRecordNumber();
-        if (! $this->isRecordNumberValid($recordNumber)) {
+        if (!$this->isRecordNumberValid($recordNumber)) {
             throw new InvalidRecordNumberException('Invalid record number!');
         }
         $recordData = $this->getRecordData();
         
         // dlugosc wstawianych danych
-        $length = ! empty($recordData) ? strlen($recordData) : 0x0000;
+        $length = !empty($recordData) ? strlen($recordData) : 0x0000;
         // naglowek
         $header = pack($this->formatter->getFormat([
             PackFormatter::SHORT,
@@ -77,7 +77,7 @@ abstract class Record
      */
     private function isRecordNumberValid($recordNumber)
     {
-        return ! empty($recordNumber) ? true : false;
+        return !empty($recordNumber) ? true : false;
     }
 
     /**

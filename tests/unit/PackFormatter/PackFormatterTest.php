@@ -1,19 +1,47 @@
 <?php
 namespace TSwiackiewicz\ExcelStreamWriter\Tests\PackFormatter;
 
+use TSwiackiewicz\ExcelStreamWriter\Tests\AbstractTestCase;
 use TSwiackiewicz\ExcelStreamWriter\PackFormatter\PackFormatter;
 use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\LittleEndianByteOrderMock;
 use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\BigEndianByteOrderMock;
 use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\MachineByteOrderByteOrderMock;
 use TSwiackiewicz\ExcelStreamWriter\ByteOrder\ByteOrder;
 
-class PackFormatterTest extends \PHPUnit_Framework_TestCase
+class PackFormatterTest extends AbstractTestCase
 {
 
     /**
      * @test
      */
-    public function getFormatShortArgLittleEndian()
+    public function getFormatLittleEndianEmptyArgument()
+    {
+        $formatter = new PackFormatter(new LittleEndianByteOrderMock());
+        $this->assertSame('', $formatter->getFormat([]));
+    }
+
+    /**
+     * @test
+     */
+    public function getFormatBigEndianEmptyArgument()
+    {
+        $formatter = new PackFormatter(new BigEndianByteOrderMock());
+        $this->assertSame('', $formatter->getFormat([]));
+    }
+
+    /**
+     * @test
+     */
+    public function getFormatMachineByteOrderEndianEmptyArgument()
+    {
+        $formatter = new PackFormatter(new MachineByteOrderByteOrderMock());
+        $this->assertSame('', $formatter->getFormat([]));
+    }
+
+    /**
+     * @test
+     */
+    public function getFormatLittleEndianShortArgument()
     {
         $formatter = new PackFormatter(new LittleEndianByteOrderMock());
         $this->assertEquals('v', $formatter->getFormat([
@@ -24,7 +52,7 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getFormatShortArgBigEndian()
+    public function getFormatBigEndianShortArgument()
     {
         $formatter = new PackFormatter(new BigEndianByteOrderMock());
         $this->assertEquals('n', $formatter->getFormat([
@@ -35,7 +63,7 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getFormatShortArgMachineByteOrderEndian()
+    public function getFormatMachineByteOrderEndianShortArgument()
     {
         $formatter = new PackFormatter(new MachineByteOrderByteOrderMock());
         $this->assertEquals('S', $formatter->getFormat([
@@ -46,7 +74,7 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getFormatLongArgLittleEndian()
+    public function getFormatLittleEndianLongArgument()
     {
         $formatter = new PackFormatter(new LittleEndianByteOrderMock());
         $this->assertEquals('V', $formatter->getFormat([
@@ -57,7 +85,7 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getFormatLongArgBigEndian()
+    public function getFormatBigEndianLongArgument()
     {
         $formatter = new PackFormatter(new BigEndianByteOrderMock());
         $this->assertEquals('N', $formatter->getFormat([
@@ -68,7 +96,7 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getFormatLongArgMachineByteOrderEndian()
+    public function getFormatMachineByteOrderEndianLongArgument()
     {
         $formatter = new PackFormatter(new MachineByteOrderByteOrderMock());
         $this->assertEquals('L', $formatter->getFormat([
@@ -79,7 +107,7 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getFormatDoubleArgLittleEndian()
+    public function getFormatLittleEndianDoubleArgument()
     {
         $formatter = new PackFormatter(new LittleEndianByteOrderMock());
         $this->assertEquals('d', $formatter->getFormat([
@@ -90,7 +118,7 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getFormatDoubleArgBigEndian()
+    public function getFormatBigEndianDoubleArgument()
     {
         $formatter = new PackFormatter(new BigEndianByteOrderMock());
         $this->assertEquals('d', $formatter->getFormat([
@@ -101,7 +129,7 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getFormatDoubleArgMachineByteOrderEndian()
+    public function getFormatMachineByteOrderEndianDoubleArgument()
     {
         $formatter = new PackFormatter(new MachineByteOrderByteOrderMock());
         $this->assertEquals('d', $formatter->getFormat([
@@ -112,7 +140,7 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getFormatCharArgLittleEndian()
+    public function getFormatLittleEndianCharArgument()
     {
         $formatter = new PackFormatter(new LittleEndianByteOrderMock());
         $this->assertEquals('C', $formatter->getFormat([
@@ -123,7 +151,7 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getFormatCharArgBigEndian()
+    public function getFormatBigEndianCharArgument()
     {
         $formatter = new PackFormatter(new BigEndianByteOrderMock());
         $this->assertEquals('C', $formatter->getFormat([
@@ -134,7 +162,7 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getFormatCharArgMachineByteOrderEndian()
+    public function getFormatMachineByteOrderEndianCharArgument()
     {
         $formatter = new PackFormatter(new MachineByteOrderByteOrderMock());
         $this->assertEquals('C', $formatter->getFormat([
@@ -145,7 +173,7 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getFormatMultipleArgLittleEndian()
+    public function getFormatLittleEndianMultipleArguments()
     {
         $formatter = new PackFormatter(new LittleEndianByteOrderMock());
         $this->assertEquals('vVdC', $formatter->getFormat([
@@ -159,7 +187,7 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getFormatMultipleArgBigEndian()
+    public function getFormatBigEndianMultipleArguments()
     {
         $formatter = new PackFormatter(new BigEndianByteOrderMock());
         $this->assertEquals('nNdC', $formatter->getFormat([
@@ -173,7 +201,7 @@ class PackFormatterTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getFormatMultipleArgMachineByteOrderEndian()
+    public function getFormatMachineByteOrderEndianMultipleArguments()
     {
         $formatter = new PackFormatter(new MachineByteOrderByteOrderMock());
         $this->assertEquals('SLdC', $formatter->getFormat([

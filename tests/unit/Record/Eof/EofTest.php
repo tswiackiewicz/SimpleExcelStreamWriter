@@ -1,13 +1,14 @@
 <?php
 namespace TSwiackiewicz\ExcelStreamWriter\Tests\Record\Eof;
 
+use TSwiackiewicz\ExcelStreamWriter\Tests\AbstractTestCase;
 use TSwiackiewicz\ExcelStreamWriter\Record\Eof\Eof;
 use TSwiackiewicz\ExcelStreamWriter\PackFormatter\PackFormatter;
 use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\LittleEndianByteOrderMock;
 use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\BigEndianByteOrderMock;
 use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\MachineByteOrderByteOrderMock;
 
-class EofTest extends \PHPUnit_Framework_TestCase
+class EofTest extends AbstractTestCase
 {
 
     /**
@@ -35,5 +36,22 @@ class EofTest extends \PHPUnit_Framework_TestCase
     {
         $record = new Eof(new PackFormatter(new MachineByteOrderByteOrderMock()));
         $this->assertEquals(hex2bin('0a000000'), $record->getRecord());
+    }
+
+    /**
+     * @test
+     * @expectedException TSwiackiewicz\ExcelStreamWriter\Record\InvalidRecordNumberException
+     */
+    public function getRecordWithInvalidRecordNumber()
+    {
+        $record = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\Record\Eof\Eof', [
+            'getRecordNumber'
+        ]);
+        
+        $record->expects($this->any())
+            ->method('getRecordNumber')
+            ->willReturn('');
+        
+        $record->getRecord();
     }
 }

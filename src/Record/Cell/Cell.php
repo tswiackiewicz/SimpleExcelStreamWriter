@@ -11,21 +11,21 @@ use TSwiackiewicz\ExcelStreamWriter\Record\InvalidRecordDataException;
  */
 abstract class Cell extends Record
 {
-
+    
     /**
      * Max liczba wierszy w arkuszu (ograniczenie formatu xls)
      * 
      * @var integer
      */
     const MAX_ROWS_COUNT = 65535;
-
+    
     /**
      * Max liczba kolumn w arkuszu (ograniczenie formatu xls)
      * 
      * @var integer
      */
     const MAX_COLS_COUNT = 255;
-
+    
     /**
      * Indeks rekordu XF
      * 
@@ -69,10 +69,10 @@ abstract class Cell extends Record
      */
     protected function getRecordData()
     {
-        if (! $this->isRowValid($this->row)) {
+        if (!$this->isRowValid($this->row)) {
             throw new InvalidRecordDataException('Invalid row number!');
         }
-        if (! $this->isColValid($this->col)) {
+        if (!$this->isColValid($this->col)) {
             throw new InvalidRecordDataException('Invalid col number!');
         }
         
@@ -91,7 +91,7 @@ abstract class Cell extends Record
      */
     private function isRowValid($row)
     {
-        return (! is_int($row) or $row < 0 or $row > self::MAX_ROWS_COUNT) ? false : true;
+        return (!is_int($row) or $row < 0 or $row > self::MAX_ROWS_COUNT) ? false : true;
     }
 
     /**
@@ -102,7 +102,7 @@ abstract class Cell extends Record
      */
     private function isColValid($col)
     {
-        return (! is_int($col) or $col < 0 or $col > self::MAX_COLS_COUNT) ? false : true;
+        return (!is_int($col) or $col < 0 or $col > self::MAX_COLS_COUNT) ? false : true;
     }
 
     /**

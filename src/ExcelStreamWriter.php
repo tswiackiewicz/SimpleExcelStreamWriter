@@ -79,6 +79,11 @@ class ExcelStreamWriter
         }
     }
 
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
+
     /**
      * Ustawienie fabryki rekordow
      * 
@@ -97,10 +102,10 @@ class ExcelStreamWriter
     public function open()
     {
         if (empty($this->path)) {
-            throw new \Exception();
+            throw new \InvalidArgumentException('The file path has not been set!');
         }
         
-        $this->fileHandle = fopen($this->path, 'w+b');
+        $this->fileHandle = $this->fopen($this->path, 'w+b');
         if (false === $this->fileHandle) {
             throw new \Exception('Unable to open file: ' . $this->path . '!');
         }
@@ -109,6 +114,19 @@ class ExcelStreamWriter
         $this->writeRecord($this->factory->getBof());
         
         $this->writerOpened = true;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     * Otwarcie pliku w podanym trybie
+     * 
+     * @param string $path sciezka otwieranego pliku
+     * @param string $mode tryb otwierania pliku, np. w+b
+     * @return resource deskryptor otwartego pliku
+     */
+    protected function fopen($path, $mode)
+    {
+        return fopen($path, $mode);
     }
 
     /**
@@ -121,11 +139,23 @@ class ExcelStreamWriter
         // ustawiamy znacznik konca pliku (EOF)
         $this->writeRecord($this->factory->getEof());
         
-        if (false === fclose($this->fileHandle)) {
+        if (false === $this->fclose($this->fileHandle)) {
             throw new \Exception('Unable to close file: ' . $this->path . '!');
         }
         
         $this->writerClosed = true;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     * Zamkniecie otwartego pliku
+     * 
+     * @param resource $fileHandle deskryptor zamykanego pliku
+     * @return boolean czy zamknieto otwarty plik
+     */
+    protected function fclose($fileHandle)
+    {
+        return fclose($fileHandle);
     }
 
     /**
@@ -193,22 +223,36 @@ class ExcelStreamWriter
     }
 
     /**
+     * @codeCoverageIgnore
      * Zapisanie rekordu w arkuszu
      * 
      * @param Record $record zapisywany rekord
      * @throws \Exception blad zapisu do pliku
      * @return boolean
      */
-    private function writeRecord(Record $record)
+    protected function writeRecord(Record $record)
     {
         if (!$this->fileHandle or !is_resource($this->fileHandle)) {
             throw new \Exception('Invalid file handle!');
         }
         
-        if (false === fputs($this->fileHandle, $record->getRecord())) {
+        if (false === $this->fputs($this->fileHandle, $record->getRecord())) {
             throw new \Exception('Unable to write data to file!');
         }
         
         return true;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     * Zapis wybranego wiersza do pliku
+     * 
+     * @param resource $fileHandle deskryptor pliku
+     * @param string $data zapisywane dane
+     * @return boolean czy zapisano dane do pliku
+     */
+    protected function fputs($fileHandle, $data)
+    {
+        return fputs($fileHandle, $data);
     }
 }

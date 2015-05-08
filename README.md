@@ -19,7 +19,7 @@ Udostępnione zostały następujące metody publiczne:
   * addNextRow(array $data) - wstawia kolejny wiersz z danymi
  
  
- Przykład użycia:
+Przykład użycia:
  
  ```
 $writer = new ExcelStreamWriter('/tmp/test.xls');
@@ -32,6 +32,6 @@ $writer->addNextRow([4, 'Title #4', -99.99]);
 $writer->close();
  ```
  
- **UWAGA!!!** Ponieważ format BIFF wymaga, aby występowały rekordy BOF oraz EOF, dla uzyskania prawidłowego pliku konieczne jest otwarcie writera za pomocą *ExcelStreamWriter::open()* oraz zamknięcie go za pomocą *ExcelStreamWriter::close()*
+**UWAGA!!!** Ponieważ format BIFF wymaga, aby występowały rekordy BOF oraz EOF, dla uzyskania prawidłowego pliku konieczne jest otwarcie writera za pomocą *ExcelStreamWriter::open()* oraz zamknięcie go za pomocą *ExcelStreamWriter::close()*
 
 

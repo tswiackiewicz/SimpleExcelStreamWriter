@@ -4,6 +4,10 @@ namespace TSwiackiewicz\ExcelStreamWriter\Tests;
 use TSwiackiewicz\ExcelStreamWriter\Tests\Record\NullRecord;
 use TSwiackiewicz\ExcelStreamWriter\Tests\PackFormatter\NullPackFormatter;
 use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\NullByteOrder;
+use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\BigEndianByteOrderMock;
+use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\LittleEndianByteOrderMock;
+use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\MachineByteOrderByteOrderMock;
+use TSwiackiewicz\ExcelStreamWriter\PackFormatter\PackFormatter;
 
 abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -85,5 +89,40 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
             ->willReturn($nullRecord);
         
         return $factory;
+    }
+
+    protected function getPackFormatter()
+    {
+        return new PackFormatter(new NullByteOrder());
+    }
+    
+    protected function getLittleEndianPackFormatter()
+    {
+        return new PackFormatter($this->getLittleEndianByteOrderMock());
+    }
+
+    protected function getBigEndianPackFormatter()
+    {
+        return new PackFormatter($this->getBigEndianByteOrderMock());
+    }
+
+    protected function getMachineByteOrderEndianPackFormatter()
+    {
+        return new PackFormatter($this->getMachineByteOrderEndianByteOrderMock());
+    }
+
+    protected function getLittleEndianByteOrderMock()
+    {
+        return new LittleEndianByteOrderMock();
+    }
+
+    protected function getBigEndianByteOrderMock()
+    {
+        return new BigEndianByteOrderMock();
+    }
+
+    protected function getMachineByteOrderEndianByteOrderMock()
+    {
+        return new MachineByteOrderByteOrderMock();
     }
 }

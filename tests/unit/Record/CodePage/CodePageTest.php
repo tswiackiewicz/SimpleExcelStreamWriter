@@ -3,10 +3,6 @@ namespace TSwiackiewicz\ExcelStreamWriter\Tests\Record\CodePage;
 
 use TSwiackiewicz\ExcelStreamWriter\Tests\AbstractTestCase;
 use TSwiackiewicz\ExcelStreamWriter\Record\CodePage\CodePage;
-use TSwiackiewicz\ExcelStreamWriter\PackFormatter\PackFormatter;
-use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\LittleEndianByteOrderMock;
-use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\BigEndianByteOrderMock;
-use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\MachineByteOrderByteOrderMock;
 
 class CodePageTest extends AbstractTestCase
 {
@@ -16,7 +12,7 @@ class CodePageTest extends AbstractTestCase
      */
     public function shouldReturnLittleEndianUnicodeCodePageRecord()
     {
-        $record = new CodePage(new PackFormatter(new LittleEndianByteOrderMock()));
+        $record = new CodePage($this->getLittleEndianPackFormatter());
         $this->assertEquals(hex2bin('42000200b004'), $record->getRecord());
     }
 
@@ -25,7 +21,7 @@ class CodePageTest extends AbstractTestCase
      */
     public function shouldReturndBigEndianUnicodeCodePageRecord()
     {
-        $record = new CodePage(new PackFormatter(new BigEndianByteOrderMock()));
+        $record = new CodePage($this->getBigEndianPackFormatter());
         $this->assertEquals(hex2bin('0042000204b0'), $record->getRecord());
     }
 
@@ -34,7 +30,7 @@ class CodePageTest extends AbstractTestCase
      */
     public function shouldReturnMachineByteOrderEndianUnicodeCodePageRecord()
     {
-        $record = new CodePage(new PackFormatter(new MachineByteOrderByteOrderMock()));
+        $record = new CodePage($this->getMachineByteOrderEndianPackFormatter());
         $this->assertEquals(hex2bin('42000200b004'), $record->getRecord());
     }
 

@@ -3,11 +3,6 @@ namespace TSwiackiewicz\ExcelStreamWriter\Tests\Record\Cell;
 
 use TSwiackiewicz\ExcelStreamWriter\Tests\AbstractTestCase;
 use TSwiackiewicz\ExcelStreamWriter\Record\Cell\BlankCell;
-use TSwiackiewicz\ExcelStreamWriter\PackFormatter\PackFormatter;
-use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\LittleEndianByteOrderMock;
-use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\BigEndianByteOrderMock;
-use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\MachineByteOrderByteOrderMock;
-use TSwiackiewicz\ExcelStreamWriter\ByteOrder\ByteOrder;
 
 class BlankCellTest extends AbstractTestCase
 {
@@ -17,7 +12,7 @@ class BlankCellTest extends AbstractTestCase
      */
     public function shouldReturnLittleEndianBlankCellRecord()
     {
-        $record = new BlankCell(new PackFormatter(new LittleEndianByteOrderMock()), 0, 0);
+        $record = new BlankCell($this->getLittleEndianPackFormatter(), 0, 0);
         $this->assertEquals(hex2bin('01020600000000000f00'), $record->getRecord());
     }
 
@@ -26,7 +21,7 @@ class BlankCellTest extends AbstractTestCase
      */
     public function shouldReturnBigEndianBlankCellRecord()
     {
-        $record = new BlankCell(new PackFormatter(new BigEndianByteOrderMock()), 0, 0);
+        $record = new BlankCell($this->getBigEndianPackFormatter(), 0, 0);
         $this->assertEquals(hex2bin('0201000600000000000f'), $record->getRecord());
     }
 
@@ -35,7 +30,7 @@ class BlankCellTest extends AbstractTestCase
      */
     public function shouldReturnMachineByteOrderEndianBlankCellRecord()
     {
-        $record = new BlankCell(new PackFormatter(new MachineByteOrderByteOrderMock()), 0, 0);
+        $record = new BlankCell($this->getMachineByteOrderEndianPackFormatter(), 0, 0);
         $this->assertEquals(hex2bin('01020600000000000f00'), $record->getRecord());
     }
 
@@ -45,7 +40,7 @@ class BlankCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenInvalidRowIsSet()
     {
-        $record = new BlankCell(new PackFormatter(new ByteOrder()), -100, 0);
+        $record = new BlankCell($this->getPackFormatter(), -100, 0);
         $this->assertEquals('', $record->getRecord());
     }
 
@@ -55,7 +50,7 @@ class BlankCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenMaxRowExceeded()
     {
-        $record = new BlankCell(new PackFormatter(new ByteOrder()), 99999, 0);
+        $record = new BlankCell($this->getPackFormatter(), 99999, 0);
         $this->assertEquals('', $record->getRecord());
     }
 
@@ -65,7 +60,7 @@ class BlankCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenInvalidColIsSet()
     {
-        $record = new BlankCell(new PackFormatter(new ByteOrder()), 0, -100);
+        $record = new BlankCell($this->getPackFormatter(), 0, -100);
         $this->assertEquals('', $record->getRecord());
     }
 
@@ -75,7 +70,7 @@ class BlankCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenMaxColExceeded()
     {
-        $record = new BlankCell(new PackFormatter(new ByteOrder()), 0, 999);
+        $record = new BlankCell($this->getPackFormatter(), 0, 999);
         $this->assertEquals('', $record->getRecord());
     }
 

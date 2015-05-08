@@ -21,6 +21,7 @@ class NullRecord extends Record
     }
 
     /**
+     * @codeCoverageIgnore
      * Pobranie numeru rekordu
      * 
      * @return string numeru rekordu
@@ -31,6 +32,7 @@ class NullRecord extends Record
     }
 
     /**
+     * @codeCoverageIgnore
      * Pobranie danych rekordu
      * 
      * @throws InvalidRecordDataException nieprawidlowe dane rekordu

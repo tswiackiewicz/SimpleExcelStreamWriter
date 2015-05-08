@@ -3,10 +3,6 @@ namespace TSwiackiewicz\ExcelStreamWriter\Tests\Record\Eof;
 
 use TSwiackiewicz\ExcelStreamWriter\Tests\AbstractTestCase;
 use TSwiackiewicz\ExcelStreamWriter\Record\Eof\Eof;
-use TSwiackiewicz\ExcelStreamWriter\PackFormatter\PackFormatter;
-use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\LittleEndianByteOrderMock;
-use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\BigEndianByteOrderMock;
-use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\MachineByteOrderByteOrderMock;
 
 class EofTest extends AbstractTestCase
 {
@@ -16,7 +12,7 @@ class EofTest extends AbstractTestCase
      */
     public function shouldReturnLittleEndianEofRecord()
     {
-        $record = new Eof(new PackFormatter(new LittleEndianByteOrderMock()));
+        $record = new Eof($this->getLittleEndianPackFormatter());
         $this->assertEquals(hex2bin('0a000000'), $record->getRecord());
     }
 
@@ -25,7 +21,7 @@ class EofTest extends AbstractTestCase
      */
     public function shouldReturnBigEndianEofRecord()
     {
-        $record = new Eof(new PackFormatter(new BigEndianByteOrderMock()));
+        $record = new Eof($this->getBigEndianPackFormatter());
         $this->assertEquals(hex2bin('000a0000'), $record->getRecord());
     }
 
@@ -34,7 +30,7 @@ class EofTest extends AbstractTestCase
      */
     public function shouldReturnMachineByteOrderEndianEofRecord()
     {
-        $record = new Eof(new PackFormatter(new MachineByteOrderByteOrderMock()));
+        $record = new Eof($this->getMachineByteOrderEndianPackFormatter());
         $this->assertEquals(hex2bin('0a000000'), $record->getRecord());
     }
 

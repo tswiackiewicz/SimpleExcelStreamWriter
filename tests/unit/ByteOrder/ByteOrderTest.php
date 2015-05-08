@@ -10,7 +10,7 @@ class ByteOrderTest extends AbstractTestCase
     /**
      * @test
      */
-    public function getEndianReturnLittleEndian()
+    public function shouldReturnLittleEndian()
     {
         $byteOrder = new LittleEndianByteOrderMock();
         $this->assertEquals(ByteOrder::LITTLE_ENDIAN, $byteOrder->getEndian());
@@ -19,7 +19,7 @@ class ByteOrderTest extends AbstractTestCase
     /**
      * @test
      */
-    public function getEndianReturnBigEndian()
+    public function shouldReturnBigEndian()
     {
         $byteOrder = new BigEndianByteOrderMock();
         $this->assertEquals(ByteOrder::BIG_ENDIAN, $byteOrder->getEndian());
@@ -28,7 +28,7 @@ class ByteOrderTest extends AbstractTestCase
     /**
      * @test
      */
-    public function getEndianReturnMachineByteOrder()
+    public function shouldReturnMachineByteOrderEndian()
     {
         $byteOrder = new MachineByteOrderByteOrderMock();
         $this->assertEquals(ByteOrder::MACHINE_BYTE_ORDER, $byteOrder->getEndian());

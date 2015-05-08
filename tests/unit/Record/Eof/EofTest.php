@@ -14,7 +14,7 @@ class EofTest extends AbstractTestCase
     /**
      * @test
      */
-    public function getRecordLittleEndian()
+    public function shouldReturnLittleEndianEofRecord()
     {
         $record = new Eof(new PackFormatter(new LittleEndianByteOrderMock()));
         $this->assertEquals(hex2bin('0a000000'), $record->getRecord());
@@ -23,7 +23,7 @@ class EofTest extends AbstractTestCase
     /**
      * @test
      */
-    public function getRecordBigEndian()
+    public function shouldReturnBigEndianEofRecord()
     {
         $record = new Eof(new PackFormatter(new BigEndianByteOrderMock()));
         $this->assertEquals(hex2bin('000a0000'), $record->getRecord());
@@ -32,7 +32,7 @@ class EofTest extends AbstractTestCase
     /**
      * @test
      */
-    public function getRecordMachineByteOrderEndian()
+    public function shouldReturnMachineByteOrderEndianEofRecord()
     {
         $record = new Eof(new PackFormatter(new MachineByteOrderByteOrderMock()));
         $this->assertEquals(hex2bin('0a000000'), $record->getRecord());
@@ -42,7 +42,7 @@ class EofTest extends AbstractTestCase
      * @test
      * @expectedException TSwiackiewicz\ExcelStreamWriter\Record\InvalidRecordNumberException
      */
-    public function getRecordWithInvalidRecordNumber()
+    public function shouldThrowInvalidRecordNumberExceptionWhenRecordNumberIsInvalid()
     {
         $record = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\Record\Eof\Eof', [
             'getRecordNumber'

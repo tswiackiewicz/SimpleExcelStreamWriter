@@ -14,7 +14,7 @@ class CodePageTest extends AbstractTestCase
     /**
      * @test
      */
-    public function getRecordLittleEndianUnicodeCodePage()
+    public function shouldReturnLittleEndianUnicodeCodePageRecord()
     {
         $record = new CodePage(new PackFormatter(new LittleEndianByteOrderMock()));
         $this->assertEquals(hex2bin('42000200b004'), $record->getRecord());
@@ -23,7 +23,7 @@ class CodePageTest extends AbstractTestCase
     /**
      * @test
      */
-    public function getRecordBigEndianUnicodeCodePage()
+    public function shouldReturndBigEndianUnicodeCodePageRecord()
     {
         $record = new CodePage(new PackFormatter(new BigEndianByteOrderMock()));
         $this->assertEquals(hex2bin('0042000204b0'), $record->getRecord());
@@ -32,7 +32,7 @@ class CodePageTest extends AbstractTestCase
     /**
      * @test
      */
-    public function getRecordMachineByteOrderEndianUnicodeCodePage()
+    public function shouldReturnMachineByteOrderEndianUnicodeCodePageRecord()
     {
         $record = new CodePage(new PackFormatter(new MachineByteOrderByteOrderMock()));
         $this->assertEquals(hex2bin('42000200b004'), $record->getRecord());
@@ -42,7 +42,7 @@ class CodePageTest extends AbstractTestCase
      * @test
      * @expectedException TSwiackiewicz\ExcelStreamWriter\Record\InvalidRecordNumberException
      */
-    public function getRecordWithInvalidRecordNumber()
+    public function shouldThrowInvalidRecordNumberExceptionWhenRecordNumberIsInvalid()
     {
         $record = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\Record\CodePage\CodePage', [
             'getRecordNumber'

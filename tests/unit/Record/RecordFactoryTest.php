@@ -29,7 +29,7 @@ class RecordFactoryTest extends AbstractTestCase
     /**
      * @test
      */
-    public function getBofValidInstance()
+    public function shouldReturnBofInstance()
     {
         $this->assertInstanceOf('TSwiackiewicz\ExcelStreamWriter\Record\Bof\Bof', $this->factory->getBof());
     }
@@ -37,7 +37,7 @@ class RecordFactoryTest extends AbstractTestCase
     /**
      * @test
      */
-    public function getEofValidInstance()
+    public function shouldReturnEofInstance()
     {
         $this->assertInstanceOf('TSwiackiewicz\ExcelStreamWriter\Record\Eof\Eof', $this->factory->getEof());
     }
@@ -45,7 +45,7 @@ class RecordFactoryTest extends AbstractTestCase
     /**
      * @test
      */
-    public function getCodePageValidInstance()
+    public function shouldReturnCodePageInstance()
     {
         $this->assertInstanceOf('TSwiackiewicz\ExcelStreamWriter\Record\CodePage\CodePage', $this->factory->getCodePage());
     }
@@ -53,7 +53,7 @@ class RecordFactoryTest extends AbstractTestCase
     /**
      * @test
      */
-    public function getBlankCellValidInstance()
+    public function shouldReturnBlankCellInstance()
     {
         $this->assertInstanceOf('TSwiackiewicz\ExcelStreamWriter\Record\Cell\BlankCell', $this->factory->getBlankCell(0, 0));
     }
@@ -61,7 +61,7 @@ class RecordFactoryTest extends AbstractTestCase
     /**
      * @test
      */
-    public function getNumberCellValidInstance()
+    public function shouldReturnNumberCellInstance()
     {
         $this->assertInstanceOf('TSwiackiewicz\ExcelStreamWriter\Record\Cell\NumberCell', $this->factory->getNumberCell(0, 0, 0));
     }
@@ -69,7 +69,7 @@ class RecordFactoryTest extends AbstractTestCase
     /**
      * @test
      */
-    public function getStringCellValidInstance()
+    public function shouldReturnStringCellInstance()
     {
         $this->assertInstanceOf('TSwiackiewicz\ExcelStreamWriter\Record\Cell\StringCell', $this->factory->getStringCell(0, 0, ''));
     }

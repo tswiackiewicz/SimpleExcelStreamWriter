@@ -74,9 +74,9 @@ class ExcelStreamWriter
      */
     public function __destruct()
     {
-        if ($this->writerOpened and !$this->writerClosed) {
-            $this->close();
-        }
+        //if ($this->writerOpened and !$this->writerClosed) {
+        //    $this->close();
+        //}
     }
 
     public function setPath($path)

@@ -37,6 +37,22 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Pomocnicza metoda zwracajaca mocka ExcelStreamWriter
+     * 
+     * @param string $path sciezka do pliku wynikowego
+     * @param array $methods lista metod, ktore zostana zamockowane
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getExcelStreamWriter($path, array $methods = [])
+    {
+        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', $methods);
+        $writer->setPath(__DIR__);
+        $writer->setFactory($this->getRecordFactory());
+        
+        return $writer;
+    }
+
+    /**
      * Pomocnicza metoda zwracajaca mocka RecordFactory
      * Wszystkie metody RecordFactory zwracaja puste obiekty NullRecord
      * 

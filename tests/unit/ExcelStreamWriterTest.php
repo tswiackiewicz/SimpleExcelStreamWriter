@@ -12,6 +12,13 @@ class ExcelStreamWriterTest extends AbstractTestCase
 {
 
     /**
+     * Sciezka do pliku wynikowego
+     * 
+     * @var string
+     */
+    private $path = '/tmp/test.xls';
+
+    /**
      * @test
      * @expectedException \InvalidArgumentException
      */
@@ -27,10 +34,9 @@ class ExcelStreamWriterTest extends AbstractTestCase
      */
     public function shouldThrowExceptionWhenUnableToOpenFile()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'fopen'
         ]);
-        $writer->setPath(__DIR__);
         
         $writer->expects($this->exactly(1))
             ->method('fopen')
@@ -45,13 +51,10 @@ class ExcelStreamWriterTest extends AbstractTestCase
      */
     public function shouldOpenFileSuccessfully()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'fopen',
-            'writeRecord',
-            'close'
+            'writeRecord'
         ]);
-        $writer->setPath(__DIR__);
-        $writer->setFactory($this->getRecordFactory());
         
         $writer->expects($this->exactly(1))
             ->method('fopen')
@@ -60,10 +63,6 @@ class ExcelStreamWriterTest extends AbstractTestCase
         
         $writer->expects($this->exactly(1))
             ->method('writeRecord')
-            ->willReturn(true);
-        
-        $writer->expects($this->any())
-            ->method('close')
             ->willReturn(true);
         
         $writer->open();
@@ -76,12 +75,10 @@ class ExcelStreamWriterTest extends AbstractTestCase
      */
     public function shouldThrowExceptionWhenUnableToCloseFile()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'writeRecord',
             'fclose'
         ]);
-        $writer->setPath(__DIR__);
-        $writer->setFactory($this->getRecordFactory());
         
         $writer->expects($this->exactly(1))
             ->method('writeRecord')
@@ -99,12 +96,10 @@ class ExcelStreamWriterTest extends AbstractTestCase
      */
     public function shouldCloseFileSuccessfully()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'writeRecord',
             'fclose'
         ]);
-        $writer->setPath(__DIR__);
-        $writer->setFactory($this->getRecordFactory());
         
         $writer->expects($this->exactly(1))
             ->method('writeRecord')
@@ -123,7 +118,7 @@ class ExcelStreamWriterTest extends AbstractTestCase
      */
     public function shouldReturnFalseWhenUnableToAddNextRow()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'addRow'
         ]);
         
@@ -143,7 +138,7 @@ class ExcelStreamWriterTest extends AbstractTestCase
      */
     public function shouldAddNextRowSuccessfully()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'addRow'
         ]);
         
@@ -167,9 +162,9 @@ class ExcelStreamWriterTest extends AbstractTestCase
     /**
      * @test
      */
-    public function shouldReturnFalseWhenUnableToAddCell()
+    public function shouldAddRowReturnFalseWhenUnableToAddCell()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'addCell'
         ]);
         
@@ -190,7 +185,7 @@ class ExcelStreamWriterTest extends AbstractTestCase
      */
     public function shouldAddRowSuccessfully()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'addCell'
         ]);
         
@@ -220,9 +215,9 @@ class ExcelStreamWriterTest extends AbstractTestCase
      * @test
      * @expectedException \InvalidArgumentException
      */
-    public function shouldThrowInvalidArgumentExceptionWhenOpenThrowsInvalidArgumentException()
+    public function shouldAddCellThrowInvalidArgumentExceptionWhenOpenThrowsInvalidArgumentException()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'open'
         ]);
         
@@ -237,9 +232,9 @@ class ExcelStreamWriterTest extends AbstractTestCase
      * @test
      * @expectedException \Exception
      */
-    public function shouldThrowExceptionWhenOpenThrowsException()
+    public function shouldAddCellThrowExceptionWhenOpenThrowsException()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'open'
         ]);
         
@@ -255,11 +250,10 @@ class ExcelStreamWriterTest extends AbstractTestCase
      */
     public function shouldReturnFalseWhenUnableToWriteNumberCell()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'open',
             'writeRecord'
         ]);
-        $writer->setFactory($this->getRecordFactory());
         
         $writer->expects($this->exactly(1))
             ->method('open')
@@ -277,11 +271,10 @@ class ExcelStreamWriterTest extends AbstractTestCase
      */
     public function shouldAddNumberCellSuccessfully()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'open',
             'writeRecord'
         ]);
-        $writer->setFactory($this->getRecordFactory());
         
         $writer->expects($this->exactly(1))
             ->method('open')
@@ -299,11 +292,10 @@ class ExcelStreamWriterTest extends AbstractTestCase
      */
     public function shouldReturnFalseWhenUnableToWriteStringCell()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'open',
             'writeRecord'
         ]);
-        $writer->setFactory($this->getRecordFactory());
         
         $writer->expects($this->exactly(1))
             ->method('open')
@@ -321,11 +313,10 @@ class ExcelStreamWriterTest extends AbstractTestCase
      */
     public function shouldAddStringCellSuccessfully()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'open',
             'writeRecord'
         ]);
-        $writer->setFactory($this->getRecordFactory());
         
         $writer->expects($this->exactly(1))
             ->method('open')
@@ -343,11 +334,10 @@ class ExcelStreamWriterTest extends AbstractTestCase
      */
     public function shouldReturnFalseWhenUnableToWriteBlankCell()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'open',
             'writeRecord'
         ]);
-        $writer->setFactory($this->getRecordFactory());
         
         $writer->expects($this->exactly(1))
             ->method('open')
@@ -365,11 +355,10 @@ class ExcelStreamWriterTest extends AbstractTestCase
      */
     public function shouldAddBlankCellSuccessfully()
     {
-        $writer = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter', [
+        $writer = $this->getExcelStreamWriter($this->path, [
             'open',
             'writeRecord'
         ]);
-        $writer->setFactory($this->getRecordFactory());
         
         $writer->expects($this->exactly(1))
             ->method('open')

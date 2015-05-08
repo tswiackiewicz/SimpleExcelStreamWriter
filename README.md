@@ -14,41 +14,24 @@ Ponadto generowany arkusz został ograniczony do 65535 wierszy oraz 255 kolumn (
 
 Udostępnione zostały następujące metody publiczne:
 
- * addCell($row, $col, $value) - wstawia komórkę o podanej zawartości pod wskazany adres ($row, $col), $row - [0..65535], $col - [0..255]
- * addRow($row, array $data) - wstawia dane do wiersza o podanym numerze ($row)
- * addNextRow(array $data) - wstawia kolejny wiersz z danymi
+  * addCell($row, $col, $value) - wstawia komórkę o podanej zawartości pod wskazany adres ($row, $col), $row - [0..65535], $col - [0..255]
+  * addRow($row, array $data) - wstawia dane do wiersza o podanym numerze ($row)
+  * addNextRow(array $data) - wstawia kolejny wiersz z danymi
+ 
  
  Przykład użycia:
  
  ```
 $writer = new ExcelStreamWriter('/tmp/test.xls');
 $writer->open();
-$writer->addNextRow([
-    'Lp',
-    'Subject',
-    'Content'
-]);
-$writer->addNextRow([
-    1,
-    'Title #1',
-    'zażółć gęślą jaźń'
-]);
-$writer->addNextRow([
-    2,
-    'Title #2',
-    'Lorem ipsum...'
-]);
-$writer->addNextRow([
-    3,
-    'Title #3',
-    ''
-]);
-$writer->addNextRow([
-    4,
-    'Title #4',
-    -99.99
-]);
+$writer->addNextRow(['Lp', 'Subject', 'Content']);
+$writer->addNextRow([1, 'Title #1', 'zażółć gęślą jaźń']);
+$writer->addNextRow([2, 'Title #2', 'Lorem ipsum...']);
+$writer->addNextRow([3, 'Title #3', '']);
+$writer->addNextRow([4, 'Title #4', -99.99]);
 $writer->close();
  ```
+ 
+ **UWAGA!!!** Ponieważ format BIFF wymaga, aby występowały rekordy BOF oraz EOF, dla uzyskania prawidłowego pliku konieczne jest otwarcie writera za pomocą *ExcelStreamWriter::open()* oraz zamknięcie go za pomocą *ExcelStreamWriter::close()*
 
 

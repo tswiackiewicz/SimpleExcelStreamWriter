@@ -38,7 +38,7 @@ class BlankCellTest extends AbstractTestCase
      * @test
      * @expectedException TSwiackiewicz\ExcelStreamWriter\Record\InvalidRecordDataException
      */
-    public function shouldThrowInvalidRecordDataExceptionWhenInvalidRowIsSet()
+    public function shouldThrowInvalidRecordDataExceptionWhenRowIsInvalid()
     {
         $record = new BlankCell($this->getMachineByteOrderEndianPackFormatter(), -100, 0);
         $this->assertEquals('', $record->getRecord());
@@ -58,7 +58,7 @@ class BlankCellTest extends AbstractTestCase
      * @test
      * @expectedException TSwiackiewicz\ExcelStreamWriter\Record\InvalidRecordDataException
      */
-    public function shouldThrowInvalidRecordDataExceptionWhenInvalidColIsSet()
+    public function shouldThrowInvalidRecordDataExceptionWhenColIsInvalid()
     {
         $record = new BlankCell($this->getMachineByteOrderEndianPackFormatter(), 0, -100);
         $this->assertEquals('', $record->getRecord());

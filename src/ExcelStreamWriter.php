@@ -41,18 +41,18 @@ class ExcelStreamWriter
     private $rowsCount = 0;
 
     /**
-     * Czy writer zostal otwarty
+     * Czy znacznik poczatku pliku zostal doadny
      * 
      * @var boolean
      */
-    private $writerOpened = false;
+    private $bofMarkAdded = false;
 
     /**
-     * Czy writer zostal zamkniety
+     * Czy znacznik konca pliku zostal doadny
      * 
      * @var boolean
      */
-    private $writerClosed = false;
+    private $eofMarkAdded = false;
 
     /**
      * Inicjalizacja writera
@@ -67,16 +67,6 @@ class ExcelStreamWriter
         if (is_null($factory)) {
             $this->factory = new RecordFactory(new PackFormatter(new ByteOrder()));
         }
-    }
-
-    /**
-     * Zamkniecie writera (jesli nie zostal zamkniety)
-     */
-    public function __destruct()
-    {
-        //if ($this->writerOpened and !$this->writerClosed) {
-        //    $this->close();
-        //}
     }
 
     public function setPath($path)
@@ -109,11 +99,6 @@ class ExcelStreamWriter
         if (false === $this->fileHandle) {
             throw new \Exception('Unable to open file: ' . $this->path . '!');
         }
-        
-        // ustawiamy znacznik poczatku pliku (BOF)
-        $this->writeRecord($this->factory->getBof());
-        
-        $this->writerOpened = true;
     }
 
     /**
@@ -137,13 +122,15 @@ class ExcelStreamWriter
     public function close()
     {
         // ustawiamy znacznik konca pliku (EOF)
-        $this->writeRecord($this->factory->getEof());
+        if (!$this->eofMarkAdded) {
+            $this->writeRecord($this->factory->getEof());
+            
+            $this->eofMarkAdded = true;
+        }
         
         if (false === $this->fclose($this->fileHandle)) {
             throw new \Exception('Unable to close file: ' . $this->path . '!');
         }
-        
-        $this->writerClosed = true;
     }
 
     /**
@@ -206,20 +193,26 @@ class ExcelStreamWriter
      */
     public function addCell($row, $col, $value)
     {
-        // otwarcie writera (jesli nie zostal otwarty)
-        if (!$this->writerOpened) {
-            $this->open();
+        // ustawiamy znacznik poczatku pliku (BOF)
+        if (!$this->bofMarkAdded) {
+            $this->writeRecord($this->factory->getBof());
+            
+            $this->bofMarkAdded = true;
         }
         
+        $cell = $this->factory->getBlankCell($row, $col);
         if (is_numeric($value)) {
-            return $this->writeRecord($this->factory->getNumberCell($row, $col, $value));
+            $cell = $this->factory->getNumberCell($row, $col, $value);
         }
         
         if (is_string($value) and !empty($value)) {
-            return $this->writeRecord($this->factory->getStringCell($row, $col, $value));
+            $cell = $this->factory->getStringCell($row, $col, $value);
         }
         
-        return $this->writeRecord($this->factory->getBlankCell($row, $col));
+        $isCellAddedToWorksheet = $this->writeRecord($cell);
+        unset($cell);
+        
+        return $isCellAddedToWorksheet;
     }
 
     /**

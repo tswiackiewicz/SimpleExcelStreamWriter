@@ -92,7 +92,7 @@ class NumberCellTest extends AbstractTestCase
      * @test
      * @expectedException TSwiackiewicz\ExcelStreamWriter\Record\InvalidRecordDataException
      */
-    public function shouldThrowInvalidRecordDataExceptionWhenInvalidRowIsSet()
+    public function shouldThrowInvalidRecordDataExceptionWhenRowIsInvalid()
     {
         $record = new NumberCell($this->getMachineByteOrderEndianPackFormatter(), -100, 0, 0);
         $this->assertEquals('', $record->getRecord());
@@ -112,7 +112,7 @@ class NumberCellTest extends AbstractTestCase
      * @test
      * @expectedException TSwiackiewicz\ExcelStreamWriter\Record\InvalidRecordDataException
      */
-    public function shouldThrowInvalidRecordDataExceptionWhenInvalidColIsSet()
+    public function shouldThrowInvalidRecordDataExceptionWhenColIsInvalid()
     {
         $record = new NumberCell($this->getMachineByteOrderEndianPackFormatter(), 0, -100, 0);
         $this->assertEquals('', $record->getRecord());
@@ -132,7 +132,7 @@ class NumberCellTest extends AbstractTestCase
      * @test
      * @expectedException TSwiackiewicz\ExcelStreamWriter\Record\InvalidRecordDataValueException
      */
-    public function shouldThrowInvalidRecordDataValueExceptionWhenInvalidCellValueIsSet()
+    public function shouldThrowInvalidRecordDataValueExceptionWhenCellValueIsInvalid()
     {
         $record = new NumberCell($this->getMachineByteOrderEndianPackFormatter(), 0, 0, 'string');
         $this->assertEquals('', $record->getRecord());

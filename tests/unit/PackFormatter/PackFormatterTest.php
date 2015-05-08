@@ -212,7 +212,7 @@ class PackFormatterTest extends AbstractTestCase
      * @expectedException \InvalidArgumentException
      * @test
      */
-    public function shouldThrowInvalidArgumentExceptionWhenInvalidArgTypeIsSet()
+    public function shouldThrowInvalidArgumentExceptionWhenArgTypeIsInvalid()
     {
         $formatter = $this->getMachineByteOrderEndianPackFormatter();
         $this->assertEquals('C', $formatter->getFormat([

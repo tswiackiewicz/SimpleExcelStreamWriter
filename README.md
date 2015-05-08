@@ -1,5 +1,5 @@
 # Excel Stream Writer
------
+
 
 Klasa umożliwiająca strumieniowy zapis plików w formacie *.xls* (BIFF - Binary Interchange File Format).
 

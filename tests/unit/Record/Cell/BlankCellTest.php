@@ -40,7 +40,7 @@ class BlankCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenInvalidRowIsSet()
     {
-        $record = new BlankCell($this->getPackFormatter(), -100, 0);
+        $record = new BlankCell($this->getMachineByteOrderEndianPackFormatter(), -100, 0);
         $this->assertEquals('', $record->getRecord());
     }
 
@@ -50,7 +50,7 @@ class BlankCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenMaxRowExceeded()
     {
-        $record = new BlankCell($this->getPackFormatter(), 99999, 0);
+        $record = new BlankCell($this->getMachineByteOrderEndianPackFormatter(), 99999, 0);
         $this->assertEquals('', $record->getRecord());
     }
 
@@ -60,7 +60,7 @@ class BlankCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenInvalidColIsSet()
     {
-        $record = new BlankCell($this->getPackFormatter(), 0, -100);
+        $record = new BlankCell($this->getMachineByteOrderEndianPackFormatter(), 0, -100);
         $this->assertEquals('', $record->getRecord());
     }
 
@@ -70,7 +70,7 @@ class BlankCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenMaxColExceeded()
     {
-        $record = new BlankCell($this->getPackFormatter(), 0, 999);
+        $record = new BlankCell($this->getMachineByteOrderEndianPackFormatter(), 0, 999);
         $this->assertEquals('', $record->getRecord());
     }
 

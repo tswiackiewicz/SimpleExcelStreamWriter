@@ -2,12 +2,8 @@
 namespace TSwiackiewicz\ExcelStreamWriter\Tests;
 
 use TSwiackiewicz\ExcelStreamWriter\Tests\Record\NullRecord;
-use TSwiackiewicz\ExcelStreamWriter\Tests\PackFormatter\NullPackFormatter;
-use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\NullByteOrder;
-use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\BigEndianByteOrderMock;
-use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\LittleEndianByteOrderMock;
-use TSwiackiewicz\ExcelStreamWriter\Tests\ByteOrder\MachineByteOrderByteOrderMock;
 use TSwiackiewicz\ExcelStreamWriter\PackFormatter\PackFormatter;
+use TSwiackiewicz\ExcelStreamWriter\ByteOrder\ByteOrder;
 
 abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -64,7 +60,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function getRecordFactory()
     {
-        $nullRecord = new NullRecord(new NullPackFormatter(new NullByteOrder()));
+        $nullRecord = new NullRecord($this->getMachineByteOrderEndianPackFormatter());
         
         $factory = $this->getMockWithoutConstructing('TSwiackiewicz\ExcelStreamWriter\Record\RecordFactory');
         
@@ -91,38 +87,111 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
         return $factory;
     }
 
-    protected function getPackFormatter()
-    {
-        return new PackFormatter(new NullByteOrder());
-    }
-    
+    /**
+     * Pomocnicza metoda zwracajaca PackFormattera dla trybu endian Little Endian
+     * 
+     * @return PackFormatter
+     */
     protected function getLittleEndianPackFormatter()
     {
         return new PackFormatter($this->getLittleEndianByteOrderMock());
     }
 
+    /**
+     * Pomocnicza metoda zwracajaca PackFormattera dla trybu endian Big Endian
+     * 
+     * @return PackFormatter
+     */
     protected function getBigEndianPackFormatter()
     {
         return new PackFormatter($this->getBigEndianByteOrderMock());
     }
 
+    /**
+     * Pomocnicza metoda zwracajaca PackFormattera dla trybu endian Machine Byte Order
+     * 
+     * @return PackFormatter
+     */
     protected function getMachineByteOrderEndianPackFormatter()
     {
         return new PackFormatter($this->getMachineByteOrderEndianByteOrderMock());
     }
 
+    /**
+     * Pomocnicza metoda zwracajaca mocka ByteOrder dla trybu endian Little Endian
+     * 
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
     protected function getLittleEndianByteOrderMock()
     {
-        return new LittleEndianByteOrderMock();
+        $byteOrder = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ByteOrder\ByteOrder', [
+            'getMachineByteOrderValue',
+            'getLittleEndianValue',
+            'getBigEndianValue'
+        ]);
+        
+        $byteOrder->expects($this->any())
+            ->method('getMachineByteOrderValue')
+            ->willReturn(0x6162797A);
+        $byteOrder->expects($this->any())
+            ->method('getLittleEndianValue')
+            ->willReturn(0x6162797A);
+        $byteOrder->expects($this->any())
+            ->method('getBigEndianValue')
+            ->willReturn(0x7A797961);
+        
+        return $byteOrder;
     }
 
+    /**
+     * Pomocnicza metoda zwracajaca mocka ByteOrder dla trybu endian Big Endian
+     * 
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
     protected function getBigEndianByteOrderMock()
     {
-        return new BigEndianByteOrderMock();
+        $byteOrder = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ByteOrder\ByteOrder', [
+            'getMachineByteOrderValue',
+            'getLittleEndianValue',
+            'getBigEndianValue'
+        ]);
+        
+        $byteOrder->expects($this->any())
+            ->method('getMachineByteOrderValue')
+            ->willReturn(0x7A797961);
+        $byteOrder->expects($this->any())
+            ->method('getLittleEndianValue')
+            ->willReturn(0x6162797A);
+        $byteOrder->expects($this->any())
+            ->method('getBigEndianValue')
+            ->willReturn(0x7A797961);
+        
+        return $byteOrder;
     }
 
+    /**
+     * Pomocnicza metoda zwracajaca mocka ByteOrder dla trybu endian Machine Byte Order
+     * 
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
     protected function getMachineByteOrderEndianByteOrderMock()
     {
-        return new MachineByteOrderByteOrderMock();
+        $byteOrder = $this->getMockWithoutConstructingWithMethods('TSwiackiewicz\ExcelStreamWriter\ByteOrder\ByteOrder', [
+            'getMachineByteOrderValue',
+            'getLittleEndianValue',
+            'getBigEndianValue'
+        ]);
+        
+        $byteOrder->expects($this->any())
+            ->method('getMachineByteOrderValue')
+            ->willReturn(0x6162797A);
+        $byteOrder->expects($this->any())
+            ->method('getLittleEndianValue')
+            ->willReturn(0x7A797961);
+        $byteOrder->expects($this->any())
+            ->method('getBigEndianValue')
+            ->willReturn(0x7A797961);
+        
+        return $byteOrder;
     }
 }

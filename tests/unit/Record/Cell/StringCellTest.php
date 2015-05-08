@@ -94,7 +94,7 @@ class StringCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenInvalidRow()
     {
-        $record = new StringCell($this->getPackFormatter(), -100, 0, '');
+        $record = new StringCell($this->getMachineByteOrderEndianPackFormatter(), -100, 0, '');
         $record->getRecord();
     }
 
@@ -104,7 +104,7 @@ class StringCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenMaxdRowExceeded()
     {
-        $record = new StringCell($this->getPackFormatter(), 99999, 0, '');
+        $record = new StringCell($this->getMachineByteOrderEndianPackFormatter(), 99999, 0, '');
         $record->getRecord();
     }
 
@@ -114,7 +114,7 @@ class StringCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenInvalidCol()
     {
-        $record = new StringCell($this->getPackFormatter(), 0, -100, '');
+        $record = new StringCell($this->getMachineByteOrderEndianPackFormatter(), 0, -100, '');
         $record->getRecord();
     }
 
@@ -124,7 +124,7 @@ class StringCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenMaxColExceeded()
     {
-        $record = new StringCell($this->getPackFormatter(), 0, 999, '');
+        $record = new StringCell($this->getMachineByteOrderEndianPackFormatter(), 0, 999, '');
         $record->getRecord();
     }
 

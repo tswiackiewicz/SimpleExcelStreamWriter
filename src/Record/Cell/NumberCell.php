@@ -58,7 +58,7 @@ class NumberCell extends Cell
      */
     protected function getValue()
     {
-        if (! $this->isValueValid($this->value)) {
+        if (!$this->isValueValid($this->value)) {
             throw new InvalidRecordDataValueException('Invalid value - numeric value is expected!');
         }
         

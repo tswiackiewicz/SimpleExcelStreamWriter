@@ -2,11 +2,6 @@
 namespace TSwiackiewicz\ExcelStreamWriter\Tests;
 
 use TSwiackiewicz\ExcelStreamWriter\ExcelStreamWriter;
-use TSwiackiewicz\ExcelStreamWriter\Record\RecordFactory;
-use TSwiackiewicz\ExcelStreamWriter\Tests\Record\NullRecord;
-use TSwiackiewicz\ExcelStreamWriter\PackFormatter\PackFormatter;
-use TSwiackiewicz\ExcelStreamWriter\ByteOrder\ByteOrder;
-use TSwiackiewicz\ExcelStreamWriter\Record\Record;
 
 class ExcelStreamWriterTest extends AbstractTestCase
 {

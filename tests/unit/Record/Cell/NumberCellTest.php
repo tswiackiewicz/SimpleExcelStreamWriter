@@ -94,7 +94,7 @@ class NumberCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenInvalidRowIsSet()
     {
-        $record = new NumberCell($this->getPackFormatter(), -100, 0, 0);
+        $record = new NumberCell($this->getMachineByteOrderEndianPackFormatter(), -100, 0, 0);
         $this->assertEquals('', $record->getRecord());
     }
 
@@ -104,7 +104,7 @@ class NumberCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenMaxdRowExceeded()
     {
-        $record = new NumberCell($this->getPackFormatter(), 99999, 0, 0);
+        $record = new NumberCell($this->getMachineByteOrderEndianPackFormatter(), 99999, 0, 0);
         $this->assertEquals('', $record->getRecord());
     }
 
@@ -114,7 +114,7 @@ class NumberCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenInvalidColIsSet()
     {
-        $record = new NumberCell($this->getPackFormatter(), 0, -100, 0);
+        $record = new NumberCell($this->getMachineByteOrderEndianPackFormatter(), 0, -100, 0);
         $this->assertEquals('', $record->getRecord());
     }
 
@@ -124,7 +124,7 @@ class NumberCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataExceptionWhenMaxColExceeded()
     {
-        $record = new NumberCell($this->getPackFormatter(), 0, 999, 0);
+        $record = new NumberCell($this->getMachineByteOrderEndianPackFormatter(), 0, 999, 0);
         $this->assertEquals('', $record->getRecord());
     }
 
@@ -134,7 +134,7 @@ class NumberCellTest extends AbstractTestCase
      */
     public function shouldThrowInvalidRecordDataValueExceptionWhenInvalidCellValueIsSet()
     {
-        $record = new NumberCell($this->getPackFormatter(), 0, 0, 'string');
+        $record = new NumberCell($this->getMachineByteOrderEndianPackFormatter(), 0, 0, 'string');
         $this->assertEquals('', $record->getRecord());
     }
 

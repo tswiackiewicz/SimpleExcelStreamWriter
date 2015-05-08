@@ -3,8 +3,6 @@ namespace TSwiackiewicz\ExcelStreamWriter\Tests\Record;
 
 use TSwiackiewicz\ExcelStreamWriter\Tests\AbstractTestCase;
 use TSwiackiewicz\ExcelStreamWriter\Record\RecordFactory;
-use TSwiackiewicz\ExcelStreamWriter\PackFormatter\PackFormatter;
-use TSwiackiewicz\ExcelStreamWriter\ByteOrder\ByteOrder;
 
 class RecordFactoryTest extends AbstractTestCase
 {
@@ -18,7 +16,7 @@ class RecordFactoryTest extends AbstractTestCase
 
     protected function setUp()
     {
-        $this->factory = new RecordFactory(new PackFormatter(new ByteOrder()));
+        $this->factory = new RecordFactory($this->getMachineByteOrderEndianPackFormatter());
     }
 
     protected function tearDown()

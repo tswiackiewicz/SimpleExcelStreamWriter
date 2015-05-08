@@ -6,21 +6,21 @@ namespace TSwiackiewicz\ExcelStreamWriter\ByteOrder;
  */
 class ByteOrder
 {
-
+    
     /**
      * Tryb Little Endian
      * 
      * @var string
      */
     const LITTLE_ENDIAN = 'little-endian';
-
+    
     /**
      * Tryb Big Endian
      * 
      * @var string
      */
     const BIG_ENDIAN = 'big-endian';
-
+    
     /**
      * Tryb Machine Byte Order
      * 
@@ -49,12 +49,12 @@ class ByteOrder
         // konwersja $abyz do 32 bitowej postaci binarnej
         // L - unsigned long (32 bit, machine byte order)
         switch ($this->getMachineByteOrderValue()) {
-            case $this->getLittleEndianValue():
-                $endianMode = self::LITTLE_ENDIAN;
-                break;
-            
             case $this->getBigEndianValue():
                 $endianMode = self::BIG_ENDIAN;
+                break;
+            
+            case $this->getLittleEndianValue():
+                $endianMode = self::LITTLE_ENDIAN;
                 break;
         }
         

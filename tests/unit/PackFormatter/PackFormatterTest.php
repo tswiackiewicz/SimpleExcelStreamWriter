@@ -214,7 +214,7 @@ class PackFormatterTest extends AbstractTestCase
      */
     public function shouldThrowInvalidArgumentExceptionWhenInvalidArgTypeIsSet()
     {
-        $formatter = $this->getLittleEndianPackFormatter();
+        $formatter = $this->getMachineByteOrderEndianPackFormatter();
         $this->assertEquals('C', $formatter->getFormat([
             'dummy'
         ]));

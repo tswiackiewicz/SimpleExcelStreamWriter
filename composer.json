@@ -1,7 +1,21 @@
 {
-    "name": "tswiackiewicz/SimpleExcelStreamWriter",
+    "name": "tswiackiewicz/ExcelStreamWriter",
     "type": "project",
-    "description": "Project description",
+    "description": "MS Excel (BIFF5/8) stream writer",
+    "keywords": [
+        "PHP",
+        "MS Excel",
+        "BIFF",
+        "XLS"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tomasz Świacko-Świackiewicz",
+            "email": "tomasz.swiacko.swiackiewicz@gmail.com",
+            "role": "Developer"
+        }
+    ],
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
